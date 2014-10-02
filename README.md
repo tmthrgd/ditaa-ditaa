@@ -1,10 +1,10 @@
 # ditaa-ditaa
 
-[ditaa](http://ditaa.sourceforge.net/) -- DIagrams Through Ascii Art -- by Stathis Sideris is:
+[ditaa](http://ditaa.sourceforge.net/) – DIagrams Through Ascii Art – by Stathis Sideris is:
 
 > a small command-line utility written in Java, that can convert diagrams drawn using ascii art ('drawings' that contain characters that resemble lines like | / - ), into proper bitmap graphics.
 
-Which 'is best illustrated by the following example:'
+Which "is best illustrated by the following example:"
 
     +--------+   +-------+    +-------+
     |        | --+ ditaa +--> |       |
@@ -18,7 +18,7 @@ Which 'is best illustrated by the following example:'
 
 Which after conversion becomes:
 
-![ditaa image](https://raw.githubusercontent.com/tmthrgd/ditaa-ditaa/master/example-one.png)
+![ditaa image](example-one.png)
 
 > ditaa interprets ascci art as a series of open and closed shapes, but it also uses special markup syntax to increase the possibilities of shapes and symbols that can be rendered.
 
@@ -45,9 +45,10 @@ Liquid `{% ditaa %}` blocks can be used wherever liquid is rendered.
     {% endditaa %}
 
 which generates an image like the following:
-![ditaa image](https://raw.githubusercontent.com/tmthrgd/ditaa-ditaa/master/example-two.png)
 
-To maintain backwards compatibility with `jekyll-ditaa` options can be passed in command-line style like `{% ditaa -S -E %}` provided the `trollop` library is installed (`$ [sudo] gem install trollop`). It is preferred that options be passed using flags and attributes such as `{% ditaa round no-separation scale:0.75 %}`. Flags must not use the attribute syntax.
+![ditaa image](example-two.png)
+
+To maintain backwards compatibility with jekyll-ditaa options can be passed in command-line style like `{% ditaa -S -E %}` provided the trollop library is installed (`$ [sudo] gem install trollop`). It is preferred that options be passed using flags and attributes such as `{% ditaa round no-separation scale:0.75 %}`. Flags must not use the attribute syntax.
 
 ### .ditaa pages
 
@@ -86,7 +87,7 @@ The final way in which ditaa-ditaa can be used is with code blocks when using th
 
 This is the suggested method as it degrades the most gracefully outputting the source in `<pre><code>...</code></pre>` tags.
 
-ditaa-ditaa is invoked for code blocks when either the `.ditaa` or `.language-ditaa` classes are added (the latter to allow the simpler <code>``` language \ ... \ ```</code> syntax; although the latter may be removed in future and should not be depended upon). Flags (boolean options) can be specified using either classes, such as `.no-separation` and `.round`, or with IAL attributes with truthy or falsey values, such as `separation="false"` and `round="true"`. Valued options can be specified using IAL attributes, such as `scale="0.5"`.
+ditaa-ditaa is invoked for code blocks when either the `.ditaa` or `.language-ditaa` classes are added (the latter to allow the simpler <code>&#96;&#96;&#96; language \ ... \ &#96;&#96;&#96;</code> syntax; although the latter may be removed in future and should not be depended upon). Flags (boolean options) can be specified using either classes, such as `.no-separation` and `.round`, or with IAL attributes with truthy or falsey values, such as `separation="false"` and `round="true"`. Valued options can be specified using IAL attributes, such as `scale="0.5"`.
 
 ### Options
 
@@ -129,10 +130,12 @@ The `no-` prefix is not considered to be part of the option name, for instance i
 The liquid block and kramdown code block methods also permit the following extra options to be specified:
 
     dirname
-        The output path of the rendered image. This may contain %{hash} which will be replaced by a hexadecimal string unquie to the image.
+        The output path of the rendered image. This may contain %{hash} which
+        will be replaced by a hexadecimal string unquie to the image.
     
     name
-        The output filename of the rendered image. This may contain %{hash} which will be replaced by a hexadecimal string unquie to the image.
+        The output filename of the rendered image. This may contain %{hash}
+        which will be replaced by a hexadecimal string unquie to the image.
 
 #### Global Configuration
 
@@ -162,7 +165,7 @@ The following defaults are enforced:
 
 ## Future
 
-The plugin will be broken apart into a more standard `lib/ditaa-ditaa/*.rb` layout with a short `require ...` `lib/ditaa-ditaa.rb` entry point. The code will also be more heavily commented in future.
+The plugin will be broken apart into a more standard `lib/ditaa-ditaa/*.rb` layout with a `lib/ditaa-ditaa.rb` entry point. The code will also be heavily commented in future.
 
 ## Acknowledgements
 
