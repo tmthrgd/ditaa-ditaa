@@ -165,7 +165,7 @@ The following defaults are enforced:
 
 ## Future
 
-The plugin will be broken apart into a more standard `lib/ditaa-ditaa/*.rb` layout with a `lib/ditaa-ditaa.rb` entry point. The code will also be heavily commented in future.
+In future the plugin will be broken apart into a more standard `lib/ditaa-ditaa/*.rb` layout with a `lib/ditaa-ditaa.rb` entry point. The code will also be heavily commented in future.
 
 ## Acknowledgements
 
@@ -174,3 +174,7 @@ ditaa-ditaa was inspired by [jekyll-ditaa](https://github.com/matze/jekyll-ditaa
 The command-line [ditaa](http://ditaa.sourceforge.net/) utility was written by [Efstathios (Stathis) Sideris](http://www.stathis.co.uk/).
 
 The DITAA(1) manual page was written by David Paleino <dapal@debian.org>, for the Debian project.
+
+## License
+
+See [LICENSE](https://github.com/tmthrgd/ditaa-ditaa/blob/master/LICENSE).

@@ -258,7 +258,6 @@ module Jekyll
 		priority :highest
 		
 		def generate site
-			# Change this
 			site.pages -= pages = site.pages.select { |page| page.ext.casecmp(".ditaa").zero? }
 			site.static_files.push *pages.map { |page| Ditaa::PageDitaaDiagram.new site, page }
 		end
@@ -274,7 +273,7 @@ module Jekyll
 		def render context
 			site = context.registers[:site]
 			
-			# Unforunately these will not be included in the site_payload that
+			# Unforunately this will not be included in the site_payload that
 			# is avaliable to liquid because site_payload is evaluated long
 			# before this diagram is added
 			site.static_files << diagram = Ditaa::TagDitaaDiagram.new(site, super, @attributes)
@@ -392,7 +391,7 @@ begin
 			# IAL options
 			arguments.merge! Hash[Ditaa::TagDitaaDiagram::ValueOptions.map { |key| [key.to_sym, attr.delete(key) || next] }]
 			
-			# Unforunately these will not be included in the site_payload that
+			# Unforunately this will not be included in the site_payload that
 			# is avaliable to liquid because site_payload is evaluated long
 			# before this diagram is added
 			site.static_files << diagram = Ditaa::TagDitaaDiagram.new(site, el.value, arguments)
