@@ -46,7 +46,7 @@ module Ditaa
 		
 		def initialize site, options = { }
 			unless system "which ditaa >/dev/null 2>&1"
-				STDERR.puts "You are missing an executable required for jekyll-ditaa. Please run:"
+				STDERR.puts "You are missing an executable required for ditaa-ditaa. Please run:"
 				STDERR.puts " $ [sudo] apt-get install ditaa"
 				raise Errors::FatalException.new "Missing dependency: ditaa"
 			end
@@ -304,11 +304,11 @@ module Jekyll
 				attributes.keep_if { |key, _| attributes.has_key? :"#{key}_given" }
 			rescue LoadError
 				if markup =~ /(?<=\s|^)(?:-\w|--\w+)(?=\s|$)/
-					STDERR.puts "You are missing an executable required for command-line parsing in jekyll-ditaa. Please run:"
+					STDERR.puts "You are missing a library required for command-line parsing in ditaa-ditaa. Please run:"
 					STDERR.puts " $ [sudo] gem install trollop"
 				end
 			rescue Trollop::CommandlineError => err
-				STDERR.puts "Command-line parsing error: #{err.message}"
+				STDERR.puts "Command-line parsing error in ditaa-ditaa: #{err.message}"
 				STDERR.puts "Command-line arguments will be ignored."
 			rescue Trollop::VersionNeeded, Trollop::HelpNeeded
 			end

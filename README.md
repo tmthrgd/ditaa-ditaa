@@ -163,10 +163,6 @@ The following defaults are enforced:
     :dirname => "/images/ditaa",
     :name => "ditaa-%{hash}.png"
 
-## Future
-
-In future the plugin will be broken apart into a more standard `lib/ditaa-ditaa/*.rb` layout with a `lib/ditaa-ditaa.rb` entry point. The code will also be heavily commented in future.
-
 ## Acknowledgements
 
 ditaa-ditaa was inspired by [jekyll-ditaa](https://github.com/matze/jekyll-ditaa) by [Matthias Vogelgesang](http://bloerg.net/).
