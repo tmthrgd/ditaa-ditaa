@@ -85,7 +85,7 @@ module Ditaa
 				tmp.write source
 				tmp.close
 				
-				IO.popen ["ditaa", *ditaa_arguments, tmp.path, dest_path] { |out| puts out.read nil if debug || verbose }
+				IO.popen ["ditaa", *ditaa_arguments, tmp.path, dest_path] { |out| puts out.read if debug || verbose }
 			end
 			
 			File.exist? dest_path
@@ -336,34 +336,34 @@ begin
 	class Jekyll::Site
 		# Markdown support is added with a converter, by adding site here
 		# we guarantee it will be available to Kramdown::Converter::Html
-		alias_method :super_converters, :converters
+		alias_method :super_ditaa_converters, :converters
 		def converters
-			@has_patched ||= begin
+			@ditaa_has_patched ||= begin
 				config["kramdown"] ||= { }
-				config["kramdown"][:__site__] = self
+				config["kramdown"][:__ditaa_site__] = self
 				
 				true
 			end
 			
-			super_converters
+			super_ditaa_converters
 		end
 	end
 	
 	class Kramdown::Converter::Html
-		alias_method :super_convert_codeblock, :convert_codeblock
+		alias_method :super_ditaa_convert_codeblock, :convert_codeblock
 		def convert_codeblock el, indent
 			attr = el.attr.dup
 			klass = attr["class"]
 			
 			unless attr.delete "ditaa"
 				unless klass && klass.gsub!(/(?<=\s|^)(?:language-)?ditaa(?=\s|$)/i, "")
-					return super_convert_codeblock el, indent
+					return super_ditaa_convert_codeblock el, indent
 				end
 				
 				attr.delete "class" if klass.to_s.empty?
 			end
 			
-			site = @options[:__site__]
+			site = @options[:__ditaa_site__]
 			
 			arguments = { }
 			
