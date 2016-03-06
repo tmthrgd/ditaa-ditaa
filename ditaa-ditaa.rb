@@ -316,10 +316,10 @@ module Jekyll
 			attributes ||= { }
 			
 			# boolean key|no-key options
-			attributes.merge! Hash[markup.scan(/(?<=\s|^)(no-)?(\w+)(?=\s|$)/i).map { |falsey, key| [key.to_sym, !falsey] }]
+			attributes.merge! Hash[markup.scan(/(?<=\s|^)(no-)?(\w+)(?=\s|$)/i).map { |falsey, key| [key.to_sym, !falsey] }.compact]
 			
 			# key:value options
-			attributes.merge! Hash[markup.scan(Liquid::TagAttributes).map { |key, value| [key.to_sym, value] }]
+			attributes.merge! Hash[markup.scan(Liquid::TagAttributes).map { |key, value| [key.to_sym, value] }.compact]
 			
 			attributes
 		end
@@ -369,7 +369,7 @@ begin
 			
 			unless klass.to_s.empty?
 				# Class attribute boolean key|no-key options
-				flags = Hash[klass.scan(/(?<=\s|^)(no-)?(\w+)(?=\s|$)/i).map { |falsey, key| [key.to_sym, !falsey] }]
+				flags = Hash[klass.scan(/(?<=\s|^)(no-)?(\w+)(?=\s|$)/i).map { |falsey, key| [key.to_sym, !falsey] }.compact]
 				flags.keep_if { |key, _| Ditaa::TagDitaaDiagram::Flags.include? key }
 				flags.each_key { |key| klass.gsub! /(?:\s|^)(no-)?#{Regexp.escape key}(?:\s|$)/i, "" }
 				arguments.replace flags
@@ -386,10 +386,10 @@ begin
 					else next
 					end
 				]
-			end]
+			end.compact]
 			
 			# IAL options
-			arguments.merge! Hash[Ditaa::TagDitaaDiagram::ValueOptions.map { |key| [key.to_sym, attr.delete(key) || next] }]
+			arguments.merge! Hash[Ditaa::TagDitaaDiagram::ValueOptions.map { |key| [key.to_sym, attr.delete(key) || next] }.compact]
 			
 			# Unforunately this will not be included in the site_payload that
 			# is avaliable to liquid because site_payload is evaluated long
