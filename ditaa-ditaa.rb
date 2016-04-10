@@ -2,6 +2,13 @@ require "fileutils"
 require "tempfile"
 require "digest/sha1"
 
+begin
+	require "fastimage"
+rescue LoadError
+	STDERR.puts "You are missing a library required for retina image parsing in ditaa-ditaa. Please run:"
+	STDERR.puts " $ [sudo] gem install fastimage"
+end
+
 module Ditaa
 	class DitaaDiagram
 		Defaults = {
@@ -13,10 +20,11 @@ module Ditaa
 			:scale => 1.0,
 			:shadows => true,
 			:tabs => 8,
-			:verbose => false
+			:verbose => false,
+			:retinify => false
 		}.freeze
 		
-		Flags = %w[antialias debug separation round shadows verbose].freeze
+		Flags = %w[antialias debug separation round shadows verbose retinify].freeze
 		FloatOptions = %w[scale].freeze
 		IntegerOptions = %w[tabs].freeze
 		StringOptions = %w[encoding].freeze
@@ -59,8 +67,25 @@ module Ditaa
 			@options.keep_if { |key, _| self.class::Options.include? key.to_s }
 		end
 		
+		def imgsize
+			@size ||= FastImage.size destination @site.config["destination"]
+			{
+				"width" => @size[0],
+				"height" => @size[1]
+			}
+		end
+		private :size
+		
+		def width
+			retinify ? imgsize.width / 2 : imgsize.width
+		end
+		
+		def height
+			retinify ? imgsize.height / 2 : imgsize.height
+		end
+		
 		def imgtag
-			%(<img src="#{url}" />)
+			%(<img src="#{url}" width="#{width}" height="#{height}" />)
 		end
 		alias_method :output, :imgtag
 		
@@ -129,7 +154,7 @@ module Ditaa
 			args << "-E" unless separation
 			args << "-e" << encoding if encoding
 			args << "-r" if round
-			args << "-s" << scale.to_s if scale && !scale.eql?(1.0)
+			args << "-s" << (retinify ? scale * 2 : scale).to_s if scale && !scale.eql?(1.0) || retinify
 			args << "-S" unless shadows
 			args << "-t" << tabs.to_s if tabs && !tabs.eql?(8)
 			args << "-o"
